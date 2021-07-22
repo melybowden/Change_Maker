@@ -33,6 +33,7 @@ export default class body extends Component {
         this.setState({total: this.state.total+(this.state.currentQuantity*this.state.currentCost)})
         //console.log("hi: "+this.state.currentItem+" c: "+this.state.currentCost +" Q: " +this.state.currentQuantity)
         console.log(this.state.cart)
+        this.props.addItem(this.props.count + 1)
     }
 
     handlePayment(event){
@@ -43,9 +44,9 @@ export default class body extends Component {
 
     render() {
         return (
-            <div style={{display:'flex', justifyContent:'space-evenly'}}>
-                <div>
-               <form onSubmit={this.handleSubmit}>
+            <div style={{display:'flex', justifyContent:'space-evenly', padding:'5vh'}}>
+            <div>
+               <form onSubmit={this.handleSubmit} className="form">
                    <label>
                        Item: <input type = "text" name = "currentItem" value = {this.state.currentItem} onChange = {this.handleChange}/>
                    </label>
@@ -63,7 +64,7 @@ export default class body extends Component {
                </div>
 
                
-               <form onSubmit={this.handlePayment}>
+               <form onSubmit={this.handlePayment} className="form">
                     <label>
                        Payment: <input type = "number" step ="0.01" name = "paid" value = {this.state.paid} onChange={this.handleChange} />
                     </label>

@@ -7,12 +7,22 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  color: rgb(68, 68, 67);
+  color: black;
   background-color: rgb(26, 180, 180);
 }
 
-.align-header h2 {
-  display: flex;
-  align-self: flex-end;
-  color:rgb(253, 175, 8);
+.receipt {
+  background-color: lightgray;
+  padding: 5vh;
+}
+
+.form {
+  display:'flex';
+  flex-direction: column;
+  justify-content: right;
+  align-items: flex-end;
+  align-content: flex-end;
+  min-width: 10vh;
+  min-height: 10vh;
+  text-align: right;
 }
