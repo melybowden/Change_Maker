@@ -59,8 +59,11 @@ export default class body extends Component {
 
     render() {
         return (
+            <div>
+                <div style={{paddingTop:'5vh'}}><em>Instructions:</em> Add items to your cart, a payment amount, and click checkout to reveal the amount of change returned to you!</div>
+            
             <div style={{display:'flex', justifyContent:'space-evenly', padding:'5vh'}}>
-                          
+                 
                <div style={{display:'flex', flexFlow:'column wrap'}}>
                 <div style={{display:'flex', flexFlow:'row wrap', justifyContent:'space-around'}}>
                <form onSubmit={this.handleSubmit} className="form">
@@ -96,6 +99,7 @@ export default class body extends Component {
                </div>
             <Receipt cart= {this.state.cart} paid= {this.state.paid} total={this.state.total} done={this.state.done} />
 
+            </div>
             </div>
         )
     }

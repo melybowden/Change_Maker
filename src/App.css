@@ -36,3 +36,11 @@
   padding: 10px;
   text-align: center;
 }
+
+.footer {
+  background-color: purple;
+  display: flex;
+  justify-content: center;
+  color: whitesmoke;
+  text-align: center;
+}
