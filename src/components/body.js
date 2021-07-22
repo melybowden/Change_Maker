@@ -5,16 +5,13 @@ export default class body extends Component {
     constructor(props){
         super(props)
         this.state={
-
-    currentItem : "",
-    currentCost : 0,
-    currentQuantity : 0,
-    cart : [],
-    paid: 0,
-    total: 0
-
-
-
+            currentItem : "",
+            currentCost : 0,
+            currentQuantity : 0,
+            cart : [],
+            paid: 0,
+            total: 0, 
+            done: false
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -23,9 +20,6 @@ export default class body extends Component {
 
     handleChange(event) {
         this.setState({[event.target.name]:event.target.value})
-        
-      
-    
     }
 
     handleSubmit(event){ //add to cart
@@ -43,55 +37,40 @@ export default class body extends Component {
 
     handlePayment(event){
         event.preventDefault()
-        alert("paid"+this.state.paid)
-
-
-
+        // alert("paid"+this.state.paid)
+        this.setState({done:true})
     }
-
-
-
-
-
-
 
     render() {
         return (
-            <div>
+            <div style={{display:'flex', justifyContent:'space-evenly'}}>
+                <div>
                <form onSubmit={this.handleSubmit}>
-               
                    <label>
-                       item: <input type = "text" name = "currentItem" value = {this.state.currentItem} onChange = {this.handleChange}/>
+                       Item: <input type = "text" name = "currentItem" value = {this.state.currentItem} onChange = {this.handleChange}/>
                    </label>
                    <br/>
                    <label>
-                       cost: <input type = "number" step ="0.01" name = "currentCost" value = {this.state.currentCost} onChange = {this.handleChange}/>
+                       Cost: <input type = "number" step ="0.01" name = "currentCost" value = {this.state.currentCost} onChange = {this.handleChange}/>
                    </label>
                    <br/>
                    <label>
                        Quantity: <input type = "number" name = "currentQuantity" value = {this.state.currentQuantity} onChange = {this.handleChange}/>
                    </label>
                    <br/>
-                   <input type= "submit" value ="add to cart "onSubmit={this.handleSubmit}></input>
+                   <input type= "submit" value ="Add to Cart "onSubmit={this.handleSubmit}></input>
                </form>
+               </div>
 
                
                <form onSubmit={this.handlePayment}>
-
                     <label>
-                       payment: <input type = "number" step ="0.01" name = "paid" value = {this.state.paid} onChange={this.handleChange} />
-                   </label>
-                   <br></br>
-                <input type ="submit" value="check out" />
-
-
-               </form>
-            <Receipt cart= {this.state.cart} paid= {this.state.paid}/>
-    
-
-
-
-
+                       Payment: <input type = "number" step ="0.01" name = "paid" value = {this.state.paid} onChange={this.handleChange} />
+                    </label>
+                    <br></br>
+                    <input type ="submit" value="Checkout" />
+                </form>
+            <Receipt cart= {this.state.cart} paid= {this.state.paid} total={this.state.total} done={this.state.done}/>
             </div>
         )
     }
