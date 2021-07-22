@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 
-class App extends Component {
+class Counter extends Component {
     constructor(props) {
         super(props);
         this.state = {
             clicks: 0,
-            show: true
         };
     }
 
@@ -13,17 +12,14 @@ class App extends Component {
         this.setState({ clicks: this.state.clicks + 1 });
     }
    
- 
-
     render() {
         return (
             <div>
                 <button onClick={this.IncrementItem}>Click to increment by 1</button>
-        
-                { this.state.show ? <h2>{this.state.clicks}</h2> : ''}
+                <h2>{this.state.clicks}</h2>
             </div>
         );
     }
 }
 
-export default App;
+export default Counter;
