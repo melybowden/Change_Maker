@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Receipt from './receipt'
+import Catalog from './catalog'
 
 export default class body extends Component {
     constructor(props){
@@ -16,23 +17,37 @@ export default class body extends Component {
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handlePayment = this.handlePayment.bind(this)
+        this.handleQuickAdd = this.handleQuickAdd.bind(this)
     }
 
     handleChange(event) {
         this.setState({[event.target.name]:event.target.value})
     }
 
-    handleSubmit(event){ //add to cart
+    handleQuickAdd(event) {
         event.preventDefault()
         this.setState(state => 
-            {const cart = [...state.cart, [this.state.currentItem, this.state.currentQuantity, this.state.currentCost]];
+            {const cart = [...state.cart, [event.target.name, 1, event.target.value, this.state.total+event.target.value]];
                 return {
                     cart
                 };
             });
-        this.setState({total: this.state.total+(this.state.currentQuantity*this.state.currentCost)})
+        this.setState({total: Math.round((this.state.total+parseFloat(event.target.value))*100)/100})
+        this.props.addItem(this.props.count + 1)
+        // console.log(this.state.cart)
+    }
+
+    handleSubmit(event){ //add to car
+        event.preventDefault()
+        this.setState(state => 
+            {const cart = [...state.cart, [this.state.currentItem, this.state.currentQuantity, this.state.currentCost, this.state.currentQuantity*this.state.currentCost]];
+                return {
+                    cart
+                };
+            });
+        this.setState({total: Math.round((this.state.total+(this.state.currentQuantity*this.state.currentCost))*100)/100})
         //console.log("hi: "+this.state.currentItem+" c: "+this.state.currentCost +" Q: " +this.state.currentQuantity)
-        console.log(this.state.cart)
+        // console.log(this.state.cart)
         this.props.addItem(this.props.count + 1)
     }
 
@@ -45,8 +60,11 @@ export default class body extends Component {
     render() {
         return (
             <div style={{display:'flex', justifyContent:'space-evenly', padding:'5vh'}}>
-            <div>
+                          
+               <div style={{display:'flex', flexFlow:'column wrap'}}>
+                <div style={{display:'flex', flexFlow:'row wrap', justifyContent:'space-around'}}>
                <form onSubmit={this.handleSubmit} className="form">
+                   <h1>Add Items</h1>
                    <label>
                        Item: <input type = "text" name = "currentItem" value = {this.state.currentItem} onChange = {this.handleChange}/>
                    </label>
@@ -61,17 +79,23 @@ export default class body extends Component {
                    <br/>
                    <input type= "submit" value ="Add to Cart "onSubmit={this.handleSubmit}></input>
                </form>
-               </div>
-
                
                <form onSubmit={this.handlePayment} className="form">
+                   <h1>Checkout</h1>
                     <label>
                        Payment: <input type = "number" step ="0.01" name = "paid" value = {this.state.paid} onChange={this.handleChange} />
                     </label>
                     <br></br>
                     <input type ="submit" value="Checkout" />
                 </form>
-            <Receipt cart= {this.state.cart} paid= {this.state.paid} total={this.state.total} done={this.state.done}/>
+                </div>
+                <div>
+                <h1>Quick Add Items</h1>
+                <Catalog handleQuickAdd={this.handleQuickAdd}/>
+               </div>
+               </div>
+            <Receipt cart= {this.state.cart} paid= {this.state.paid} total={this.state.total} done={this.state.done} />
+
             </div>
         )
     }

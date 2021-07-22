@@ -26,3 +26,13 @@
   min-height: 10vh;
   text-align: right;
 }
+
+/* https://css-tricks.com/snippets/css/a-guide-to-flexbox/ */
+.flex-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  list-style: none;
+  padding: 10px;
+  text-align: center;
+}

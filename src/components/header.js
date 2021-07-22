@@ -20,7 +20,7 @@ export default class Header extends Component {
 
     render() {
         return (
-            <div class="align-header">
+            <div className="align-header">
                 <img src={logo} alt="logo" height={130} width={130}/>
                 <h1>Change Maker Calculator</h1>
                 <h1><FiShoppingCart/> {this.props.count}</h1>
