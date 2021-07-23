@@ -1,21 +1,24 @@
 import React, { Component } from 'react'
 import logo from './logo.jpg'
 // import Counter from './counter'
-import {FiShoppingCart} from 'react-icons/fi';
+import {FiShoppingCart} from 'react-icons/fi'
+import axios from 'axios'
 
 export default class Header extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            clicks: 0
-        }
-        this.updateClicks=this.updateClicks.bind(this)
+        this.getTrivia = this.getTrivia.bind(this)
     }
 
-    updateClicks() {
-        this.setState({
-            clicks: 0
-        })
+    getTrivia(number) {
+        axios.get("http://numbersapi.com/"+number+"/trivia")
+        .then( results => {
+            alert(results.data)
+            console.log("first")
+            console.log(results.data)
+            console.log("second")
+            return results}
+        )
     }
 
     render() {
@@ -24,7 +27,7 @@ export default class Header extends Component {
                 <img src={logo} alt="logo" height={130} width={130}/>
                 <h1>Change Maker Calculator</h1>
                 <h1><FiShoppingCart/> {this.props.count}</h1>
-                {/* <Counter updateClicks = {this.state.clicks}/> */}
+                <div>{this.getTrivia(this.props.count)}</div>
             </div>
         )
     }
