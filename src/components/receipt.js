@@ -11,6 +11,7 @@ export default function receipt(props) {
             <h2 style={{textAlign:'right'}}>Total: ${props.total}</h2>
             {props.done ? <h2 style={{textAlign:'right'}}>Paid: ${props.paid}</h2> : ''}
             {props.done ? <h2 style={{textAlign:'right'}}>Change returned: ${Math.round((props.paid - props.total)*100)/100}</h2> : ''}
+            <div>{props.joke}</div>
         </div>
     )
 }

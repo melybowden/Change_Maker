@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Receipt from './receipt'
 import Catalog from './catalog'
+import axios from 'axios'
 
 export default class body extends Component {
     constructor(props){
@@ -12,7 +13,8 @@ export default class body extends Component {
             cart : [],
             paid: 0,
             total: 0, 
-            done: false
+            done: false,
+            joke: ""
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -55,6 +57,14 @@ export default class body extends Component {
         event.preventDefault()
         // alert("paid"+this.state.paid)
         this.setState({done:true})
+        axios.get("https://icanhazdadjoke.com/", { headers: { Accept: "text/plain" } })
+        .then( results => 
+            { this.setState(
+                {joke: results.data}
+            )
+            }
+        )
+        
     }
 
     render() {
@@ -97,7 +107,7 @@ export default class body extends Component {
                 <Catalog handleQuickAdd={this.handleQuickAdd}/>
                </div>
                </div>
-            <Receipt cart= {this.state.cart} paid= {this.state.paid} total={this.state.total} done={this.state.done} />
+            <Receipt cart= {this.state.cart} paid= {this.state.paid} total={this.state.total} done={this.state.done} joke={this.state.joke}/>
 
             </div>
             </div>
