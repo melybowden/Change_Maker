@@ -20,6 +20,19 @@ export default class body extends Component {
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handlePayment = this.handlePayment.bind(this)
         this.handleQuickAdd = this.handleQuickAdd.bind(this)
+        this.postTransaction = this.postTransaction.bind(this)
+    }
+
+    postTransaction() {
+        console.log("Posting transaction");
+        axios.defaults.headers.post['Content-Type'] = 'application/json';
+        axios.post("https://vast-scrubland-04510.herokuapp.com/book", {"title":this.state.currentItem, "author":this.state.currentCost, "year":this.state.currentQuantity})
+        .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
     }
 
     handleChange(event) {
@@ -36,6 +49,7 @@ export default class body extends Component {
             });
         this.setState({total: Math.round((this.state.total+parseFloat(event.target.value))*100)/100})
         this.props.addItem(this.props.count + 1)
+        // this.postTransaction(); // Doesn't update this.state.current...
         // console.log(this.state.cart)
     }
 
@@ -51,20 +65,28 @@ export default class body extends Component {
         //console.log("hi: "+this.state.currentItem+" c: "+this.state.currentCost +" Q: " +this.state.currentQuantity)
         // console.log(this.state.cart)
         this.props.addItem(this.props.count + 1)
+        this.postTransaction();
     }
 
     handlePayment(event){
         event.preventDefault()
         // alert("paid"+this.state.paid)
         this.setState({done:true})
-        axios.get("https://icanhazdadjoke.com/", { headers: { Accept: "text/plain" } })
+        // axios.get("https://icanhazdadjoke.com/", { headers: { Accept: "text/plain" } })
+        // .then( results => 
+        //     { this.setState(
+        //         {joke: results.data}
+        //     )
+        //     }
+        // )
+        // axios.get("https://vast-scrubland-04510.herokuapp.com/book", {headers: {Authorization: "Basic dGVzdHVzZXI6dGVzdHBhc3N3b3Jk" }})
+        axios.get("https://vast-scrubland-04510.herokuapp.com/book")
         .then( results => 
-            { this.setState(
-                {joke: results.data}
-            )
+            { 
+                // console.log(results.data[0].title);
+                this.setState({joke: results.data[0].title})
             }
         )
-        
     }
 
     render() {

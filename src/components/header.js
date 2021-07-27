@@ -14,10 +14,7 @@ export default class Header extends Component {
         axios.get("http://numbersapi.com/"+number+"/trivia")
         .then( results => {
             alert(results.data)
-            console.log("first")
-            console.log(results.data)
-            console.log("second")
-            return results}
+            return results.data}
         )
     }
 
@@ -27,7 +24,7 @@ export default class Header extends Component {
                 <img src={logo} alt="logo" height={130} width={130}/>
                 <h1>Change Maker Calculator</h1>
                 <h1><FiShoppingCart/> {this.props.count}</h1>
-                <div>{this.getTrivia(this.props.count)}</div>
+                {this.getTrivia(this.props.count)}
             </div>
         )
     }

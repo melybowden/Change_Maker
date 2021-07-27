@@ -10,7 +10,7 @@ function App() {
       <div className="App">
         <Header count={count} addItem={addItem}/>
         <Body count={count} addItem={addItem}/>
-        <Footer />
+        <Footer count={count} addItem={addItem}/>
     </div>
   );
 }
